@@ -26,6 +26,53 @@ interface ValidationErrors {
   [key: string]: string
 }
 
+// Отдельный компонент для debug информации - избегаем ошибок гидрации
+const DebugInfo = ({ currentStep, showResult, answersCount }: { 
+  currentStep: number
+  showResult: boolean
+  answersCount: number
+}) => {
+  const [mounted, setMounted] = useState(false)
+  const [timestamp, setTimestamp] = useState('')
+
+  useEffect(() => {
+    setMounted(true)
+    setTimestamp(new Date().toLocaleTimeString())
+    
+    const interval = setInterval(() => {
+      setTimestamp(new Date().toLocaleTimeString())
+    }, 1000)
+    
+    return () => clearInterval(interval)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="mt-8 p-4 bg-gray-800/50 rounded-lg text-left max-w-md mx-auto">
+        <h4 className="text-white font-bold mb-2">Debug Info:</h4>
+        <div className="text-xs text-green-400 space-y-1">
+          <div>Current Step: {currentStep}</div>
+          <div>Show Result: {String(showResult)}</div>
+          <div>Has Answers: {answersCount}</div>
+          <div>Loading...</div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-8 p-4 bg-gray-800/50 rounded-lg text-left max-w-md mx-auto">
+      <h4 className="text-white font-bold mb-2">Debug Info:</h4>
+      <div className="text-xs text-green-400 space-y-1">
+        <div>Current Step: {currentStep}</div>
+        <div>Show Result: {String(showResult)}</div>
+        <div>Has Answers: {answersCount}</div>
+        <div>Timestamp: {timestamp}</div>
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
   const searchParams = useSearchParams()
   const [currentStep, setCurrentStep] = useState(0) // Начинаем с Hero (0)
@@ -250,17 +297,13 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Debug Info */}
+        {/* Debug Info - исправлено для предотвращения ошибок гидрации */}
         {process.env.NODE_ENV === 'development' && (
-          <div className="mt-8 p-4 bg-gray-800/50 rounded-lg text-left max-w-md mx-auto">
-            <h4 className="text-white font-bold mb-2">Debug Info:</h4>
-            <div className="text-xs text-green-400 space-y-1">
-              <div>Current Step: {currentStep}</div>
-              <div>Show Result: {String(showResult)}</div>
-              <div>Has Answers: {Object.keys(answers).length}</div>
-              <div>Timestamp: {new Date().toLocaleTimeString()}</div>
-            </div>
-          </div>
+          <DebugInfo 
+            currentStep={currentStep}
+            showResult={showResult}
+            answersCount={Object.keys(answers).length}
+          />
         )}
       </div>
     </div>
