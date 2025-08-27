@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -74,13 +73,20 @@ const DebugInfo = ({ currentStep, showResult, answersCount }: {
 }
 
 export default function Home() {
-  const searchParams = useSearchParams()
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null)
   const [currentStep, setCurrentStep] = useState(0) // Начинаем с Hero (0)
   const [showResult, setShowResult] = useState(false)
   const [errors, setErrors] = useState<ValidationErrors>({})
   
-  // A/B тестирование заголовков
-  const heroVariant = searchParams.get('ab') === 'hero_b' ? 'b' : 'a'
+  // A/B тестирование заголовков - только на клиенте
+  const heroVariant = searchParams?.get('ab') === 'hero_b' ? 'b' : 'a'
+  
+  // Инициализация searchParams на клиенте
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setSearchParams(new URLSearchParams(window.location.search))
+    }
+  }, [])
   
   const [answers, setAnswers] = useState<Partial<QuizAnswers>>({
     platform: undefined,
