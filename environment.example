@@ -1,0 +1,16 @@
+# Пример конфигурации переменных окружения для Takedown.co Quiz
+# Создайте файл .env.local и скопируйте эти настройки
+
+# Обязательно: URL для перенаправления на регистрацию
+NEXT_PUBLIC_SIGNUP_URL=https://takedown.co/signup
+
+# Опционально: URL для функции мгновенной проверки
+NEXT_PUBLIC_INSTANT_CHECK_URL=https://takedown.co/#instant-check
+
+# Опционально: Google Tag Manager ID для аналитики
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+
+# Опционально: Google Analytics ID
+NEXT_PUBLIC_GA_ID=GA-XXXXXXX
+
+# Для development можно оставить значения по умолчанию

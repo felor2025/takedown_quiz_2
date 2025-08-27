@@ -1,0 +1,39 @@
+[build]
+  # Build command
+  command = "npm run build"
+  
+  # Directory with the deployable files (static export)
+  publish = "out"
+
+[build.environment]
+  # Next.js settings
+  NEXT_TELEMETRY_DISABLED = "1"
+  NODE_VERSION = "18"
+
+# Custom headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-XSS-Protection = "1; mode=block"
+
+# Redirect rules for SPA behavior
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
+# API function routing (if using Netlify Functions)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Force HTTPS
+[[redirects]]
+  from = "http://take-quiz.netlify.app/*"
+  to = "https://take-quiz.netlify.app/:splat"
+  status = 301
+  force = true
