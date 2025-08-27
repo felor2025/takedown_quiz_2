@@ -210,7 +210,7 @@ export default function QuizPage() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
           <button 
             onClick={() => {
-              console.log('Start quiz clicked!')
+
               setCurrentStep(1)
             }}
             className="inline-flex items-center justify-center h-14 px-8 bg-primary text-white text-lg font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg"
@@ -219,9 +219,8 @@ export default function QuizPage() {
             <span>Start the quiz</span>
             <div className="ml-2 text-xl">→</div>
           </button>
-          <button 
+                    <button
             onClick={() => {
-              console.log('Skip to Instant Check clicked!')
               window.open(getInstantCheckURL(), '_blank')
             }}
             className="px-6 py-3 text-primary hover:text-primary/80 hover:bg-primary/10 rounded-lg transition-colors underline-offset-4 hover:underline"
@@ -274,9 +273,8 @@ export default function QuizPage() {
           <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} className="mb-3" />
           <div className="flex gap-3">
             {currentStep > 1 && (
-              <button 
+                            <button
                 onClick={() => {
-                  console.log('Mobile Back clicked!')
                   handleBack()
                 }}
                 className="flex items-center justify-center px-4 py-3 bg-card border border-border text-text rounded-lg hover:bg-card/80"
@@ -285,11 +283,10 @@ export default function QuizPage() {
                 <ArrowLeft className="h-4 w-4" />
               </button>
             )}
-            <button 
-              onClick={() => {
-                console.log('Mobile Next clicked!')
-                handleNext()
-              }}
+                            <button
+                onClick={() => {
+                  handleNext()
+                }}
               className="flex-1 flex items-center justify-center py-4 bg-primary text-white text-lg font-semibold rounded-2xl hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
               type="button"
             >
@@ -602,11 +599,10 @@ export default function QuizPage() {
         {/* Desktop Navigation (только для шагов квиза) */}
         {currentStep > 0 && (
           <div className="hidden lg:flex items-center justify-between max-w-2xl mx-auto mt-8">
-            <button
-              onClick={() => {
-                console.log('Back clicked!')
-                handleBack()
-              }}
+                          <button
+                onClick={() => {
+                  handleBack()
+                }}
               disabled={currentStep === 1}
               className="flex items-center px-4 py-2 bg-card border border-border text-text rounded-lg hover:bg-card/80 disabled:opacity-50"
               type="button"
@@ -615,11 +611,10 @@ export default function QuizPage() {
               Back
             </button>
             
-            <button
-              onClick={() => {
-                console.log('Next clicked!')
-                handleNext()
-              }}
+                          <button
+                onClick={() => {
+                  handleNext()
+                }}
               className="flex items-center justify-center px-8 py-4 bg-primary text-white text-lg font-semibold rounded-2xl hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200 min-w-[120px]"
               type="button"
             >
