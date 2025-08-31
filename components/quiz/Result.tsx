@@ -193,31 +193,6 @@ export function Result({ answers, className }: ResultProps) {
               Start Free — No Card
             </Button>
             
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                onClick={handleEmailReport}
-                variant="outline"
-                size="lg"
-                disabled={isEmailSending}
-                className="flex-1"
-              >
-                {isEmailSending 
-                  ? 'Sending...' 
-                  : emailSent 
-                    ? 'Report Sent ✓' 
-                    : 'Email me this report'
-                }
-              </Button>
-              
-              <Button
-                onClick={handleInstantCheck}
-                variant="ghost"
-                size="lg"
-                className="flex-1 underline"
-              >
-                Run Instant Check
-              </Button>
-            </div>
           </div>
         </CardContent>
       </Card>
